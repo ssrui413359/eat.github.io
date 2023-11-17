@@ -1,0 +1,113 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>吃什么？</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        h1 {
+            color: #3498db;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #foodResult {
+            font-size: 24px;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #3498db;
+            animation: typing 3s steps(30, end), blink-caret 0.5s step-end infinite alternate;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+        }
+
+        #terminatePopup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #ffffff;
+            border: 2px solid #3498db;
+            z-index: 999;
+        }
+
+        #terminatePopup img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>今天吃什么？</h1>
+
+    <p id="foodResult">吃什么吃什么吃什么到底吃什么啊啊啊啊啊！！！！</p>
+
+    <button id="decideButton" onclick="decideFood()">选择</button>
+
+    <div id="terminatePopup">
+        <p>还没选完？别吃了！把你能的！！！！</p>
+        <a href="https://imgbb.com/"><img src="https://i.ibb.co/PgpSfKB/006-FQLmmgy1hjyak5vksyg30340340tq.gif" alt="006-FQLmmgy1hjyak5vksyg30340340tq" border="0"></a>
+    </div>
+
+    <script>
+        var counter = 0;
+
+        function decideFood() {
+            if (counter < 3) {
+                var foods = ["铁板豆腐", "烤鸡腿", "烤红薯", "炒面", "鸡蛋饼", "鸡锁骨", "饭团", "炸鸡", "嵊州小吃", "三汁焖锅","新昌小吃","一食一记","过桥米线","麻辣烫","炒年糕","鸡排饭","酸菜鱼","麻辣香锅","烤盘饭","水饺","羊杂面","石锅饭","烤冷面","炸串","盖饭","粥","烧饼","凉皮","米粉","肉夹馍","西北风","汉堡"];
+                var randomIndex = Math.floor(Math.random() * foods.length);
+                var chosenFood = foods[randomIndex];
+                animateText(chosenFood);
+                counter++;
+            } else if (counter === 3) {
+                document.getElementById("decideButton").disabled = true;
+                showTerminatePopup();
+                counter++;
+            }
+        }
+
+        function animateText(text) {
+            var element = document.getElementById("foodResult");
+            element.innerHTML = "";
+
+            var index = 0;
+            var intervalId = setInterval(function () {
+                element.innerHTML += text.charAt(index);
+                index++;
+                if (index === text.length) {
+                    clearInterval(intervalId);
+                }
+            }, 100);
+        }
+
+        function showTerminatePopup() {
+            var popup = document.getElementById("terminatePopup");
+            popup.style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
